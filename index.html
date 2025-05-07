@@ -1,64 +1,88 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portfolio - Hamed Savadogo</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    img.tool-logo {
-      width: 50px;
-      height: 50px;
-      transition: transform 0.2s ease;
-    }
-    img.tool-logo:hover {
-      transform: scale(1.1);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portfolio - Hamed Savadogo</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Styles pour l'animation d'images -->
+    <style>
+        img.tool-logo {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.2s ease;
+        }
+
+        img.tool-logo:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
+
 <body>
 
-  <div class="container my-5">
-    <!-- Introduction -->
-    <header class="text-center mb-5">
-      <h1>Hamed Savadogo</h1>
-      <p class="lead">Data Engineer spécialisé en pipelines cloud et data analytics.</p>
-    </header>
+    <div class="container my-5">
+        <!-- Introduction -->
+        <header class="text-center mb-5">
+            <h1>Hamed Savadogo</h1>
+            <p class="lead">Data Engineer spécialisé en pipelines cloud et data analytics.</p>
+        </header>
 
-    <!-- À propos -->
-    <section class="mb-5">
-      <h2>À propos</h2>
-      <p>Après plusieurs expériences en data engineering et en data analysis, je construis aujourd’hui des pipelines de données robustes et documentés sur GCP et Airflow. Je suis passionné par les bonnes pratiques de modélisation, de tests et de documentation avec dbt.</p>
-    </section>
+        <!-- À propos -->
+        <section id="about" class="mb-5" data-aos="fade-up">
+            <h2>À propos</h2>
+            <p>Après plusieurs expériences en data engineering et en data analysis, je construis aujourd’hui des pipelines de données robustes et documentés sur GCP et Airflow. Je suis passionné par les bonnes pratiques de modélisation, de tests et de documentation avec dbt.</p>
+        </section>
 
-    <!-- Projets -->
-    <section class="mb-5">
-      <h2>Projets</h2>
-      <ul>
-        <li><a href="https://github.com/Koukahamed/sql-revision-app" target="_blank">Revision SQL</a></li>
-        <li><a href="https://github.com/Koukahamed/data-projets-openclassrooms" target="_blank">Projets OpenClassrooms</a></li>
-      </ul>
-    </section>
+        <!-- Projets -->
+        <section id="projects" class="mb-5" data-aos="fade-up">
+            <h2>Projets</h2>
+            <ul>
+                <li><a href="https://github.com/Koukahamed/sql-revision-app" target="_blank">Revision SQL</a></li>
+                <li><a href="https://github.com/Koukahamed/data-projets-openclassrooms" target="_blank">Projets OpenClassrooms</a></li>
+            </ul>
+        </section>
 
-    <!-- Compétences techniques -->
-    <section class="mb-5">
-      <h2>Compétences techniques</h2>
-      <div class="d-flex flex-wrap justify-content-start align-items-center gap-4 mt-3">
-        <img src="assets/img/tools/python.svg" alt="Python" class="tool-logo">
-        <img src="assets/img/tools/postgresql.svg" alt="SQL" class="tool-logo">
-        <img src="assets/img/tools/apacheairflow.svg" alt="Airflow" class="tool-logo">
-        <img src="assets/img/tools/googlecloud.svg" alt="GCP" class="tool-logo">
-        <img src="assets/img/tools/github.svg" alt="GitHub" class="tool-logo">
-        <img src="assets/img/tools/pycharm.svg" alt="GitHub" class="tool-logo">
-      </div>
-    </section>
+        <!-- Compétences techniques -->
+        <section id="skills" class="mb-5" data-aos="fade-up">
+            <h2>Compétences techniques</h2>
+            <div class="d-flex flex-wrap justify-content-start align-items-center gap-4 mt-3">
+                <img src="assets/img/tools/python.svg" alt="Python" class="tool-logo">
+                <img src="assets/img/tools/postgresql.svg" alt="SQL" class="tool-logo">
+                <img src="assets/img/tools/apacheairflow.svg" alt="Airflow" class="tool-logo">
+                <img src="assets/img/tools/googlecloud.svg" alt="GCP" class="tool-logo">
+                <img src="assets/img/tools/github.svg" alt="GitHub" class="tool-logo">
+                <img src="assets/img/tools/pycharm.svg" alt="PyCharm" class="tool-logo">
+            </div>
+        </section>
 
-    <!-- Contact -->
-    <footer class="text-center">
-      <p>📧 <a href="mailto:hamedsavadogo158@gmail.com">hamedsavadogo158@gmail.com</a></p>
-      <p>🔗 <a href="https://www.linkedin.com/in/hamed-savadogo" target="_blank">LinkedIn</a> | <a href="https://github.com/Koukahamed" target="_blank">GitHub</a></p>
-    </footer>
-  </div>
+        <!-- Contact -->
+        <footer class="text-center" data-aos="fade-up">
+            <p>📧 <a href="mailto:hamedsavadogo158@gmail.com">hamedsavadogo158@gmail.com</a></p>
+            <p>🔗 <a href="https://www.linkedin.com/in/hamed-savadogo" target="_blank">LinkedIn</a> | <a href="https://github.com/Koukahamed" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
 
+    <!-- Bootstrap JS & jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+
+    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Ton fichier script.js -->
+    <script src="script.js"></script>
 </body>
+
 </html>
