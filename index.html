@@ -29,11 +29,7 @@
 
     <!-- CODE REACT -->
     <script type="text/babel">
-        // Importation simplifiée des icônes depuis l'objet global Lucide
-        // Note: En mode standalone, on utilise les noms d'icônes comme attributs data-lucide
-        // Mais ici on va créer des composants SVG simples pour éviter la dépendance lourde à lucide.js
-        
-        // Composants Icônes simplifiés (SVG direct pour garantir l'affichage sans build step)
+        // Importation simplifiée des icônes (SVG direct pour garantir l'affichage sans build step)
         const IconGithub = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>;
         const IconLinkedin = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
         const IconMail = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>;
@@ -70,7 +66,7 @@
                 summary: "Data Engineer passionné par l'automatisation et la fiabilité des pipelines de données. Parcours combinant analyse, industrialisation et CI/CD dans des environnements cloud (GCP, Azure) et hybrides. Je conçois des architectures data robustes, gouvernées et évolutives.",
                 email: "hamed_kouka@yahoo.com",
                 github: "https://github.com/Koukahamed",
-                linkedin: "https://linkedin.com"
+                linkedin: "https://linkedin.com" // Ajoutez votre lien LinkedIn réel ici
             };
 
             const experiences = [
@@ -80,10 +76,22 @@
                     period: "Août 2025 - Présent",
                     location: "Paris",
                     tasks: [
-                        "Conception et déploiement de modèles dbt sur Snowflake pour tables de référence critiques.",
-                        "Développement de procédures stockées Python Snowpark pour l'intégration API SaaS.",
-                        "Mise en place de pipelines CI/CD (CircleCI, GitHub Actions) pour l'automatisation DEV/PROD.",
-                        "Architecture sécurisée (RBAC Snowflake, Network rules) et collaboration Data Office/DSI."
+                        "Conception et déploiement de modèles dbt sur Snowflake pour la construction de tables de référence.",
+                        "Développement de procédures stockées Python Snowpark pour l'intégration de données API SaaS.",
+                        "Mise en place de pipelines CI/CD (CircleCI, GitHub Actions) pour automatiser les déploiements DEV/PROD.",
+                        "Conception d'architecture sécurisée et gouvernée (RBAC Snowflake, Network rules, secrets)."
+                    ]
+                },
+                {
+                    company: "Effilab (Groupe Solocal)",
+                    role: "Data Engineer",
+                    period: "Janv. 2023 - Janv. 2025",
+                    location: "Boulogne-Billancourt",
+                    tasks: [
+                        "Conception et automatisation de pipelines marketing data via Airflow et Dataiku.",
+                        "Migration des flux analytiques vers BigQuery (GCP) : optimisation SQL et refonte des schémas.",
+                        "Mise en place de pipelines CI/CD pour le déploiement contrôlé des DAGs Airflow.",
+                        "Création de dashboards Metabase / Power BI et contribution à la gouvernance data."
                     ]
                 },
                 {
@@ -92,9 +100,9 @@
                     period: "Juil. 2022 - Déc. 2022",
                     location: "Puteaux",
                     tasks: [
-                        "Migration des flux analytiques vers BigQuery (GCP) : optimisation SQL et réduction des coûts.",
-                        "Création de dashboards Metabase / Power BI et accompagnement métier.",
-                        "Développement de modèles prédictifs (Python/R) pour le ciblage marketing."
+                        "Analyse des performances média (Google Ads, Facebook Ads, Display).",
+                        "Développement de modèles prédictifs (classification, clustering) en Python/R pour le ciblage marketing.",
+                        "Nettoyage et intégration de données dans Data Studio et Power BI."
                     ]
                 }
             ];
@@ -111,7 +119,7 @@
                     title: "⚽ AFCON Pro Analytics",
                     desc: "Application de Data Science pour prédire les résultats de la CAN 2025. Utilise un moteur IA (Elo pondéré) pour simuler le tournoi et analyser l'historique.",
                     tags: ["Python", "Streamlit", "Pandas", "Elo Algorithm", "Data Viz"],
-                    link: https://afcon-dashboard.streamlit.app/,
+                    link: "https://afcon-dashboard.streamlit.app/", // Lien vers votre app Streamlit
                     type: "Data Engineering & AI"
                 }
             ];
@@ -157,9 +165,9 @@
                                     <a href={`mailto:${profile.email}`} className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
                                         <IconMail /> Me contacter
                                     </a>
-                                    <button className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 transition">
+                                    <a href="./hamed_savadogo_cv_dataengineer.pdf" download className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 transition cursor-pointer">
                                         <IconFileText /> CV PDF
-                                    </button>
+                                    </a>
                                 </div>
 
                                 <div className="flex gap-6 text-slate-400 pt-6">
@@ -273,7 +281,7 @@
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
                                     <div className="mb-6">
-                                        <h3 className="font-bold text-lg text-slate-900">Master Ingénierie Statistique</h3>
+                                        <h3 className="font-bold text-lg text-slate-900">Master Ingénierie Statistiques et Actuariat</h3>
                                         <p className="text-indigo-600 font-medium">Université de Versailles (UVSQ)</p>
                                         <p className="text-slate-400 text-sm mt-1">2022</p>
                                     </div>
