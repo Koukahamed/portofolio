@@ -1,88 +1,330 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portfolio - Hamed Savadogo</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- AOS CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <!-- Styles pour l'animation d'images -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamed Kouka | Data Engineer</title>
+    
+    <!-- 1. Tailwind CSS (pour le style) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. React et ReactDOM (le coeur) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- 3. Babel (pour traduire le JSX en JS standard dans le navigateur) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- 4. Lucide Icons (version standalone) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        img.tool-logo {
-            width: 50px;
-            height: 50px;
-            transition: transform 0.2s ease;
-        }
-
-        img.tool-logo:hover {
-            transform: scale(1.1);
-        }
+        /* Ajustements mineurs */
+        html { scroll-behavior: smooth; }
     </style>
 </head>
+<body class="bg-slate-50 text-slate-800 font-sans">
 
-<body>
+    <!-- Point d'entrée de l'application React -->
+    <div id="root"></div>
 
-    <div class="container my-5">
-        <!-- Introduction -->
-        <header class="text-center mb-5">
-            <h1>Hamed Savadogo</h1>
-            <p class="lead">Data Engineer spécialisé en pipelines cloud et data analytics.</p>
-        </header>
+    <!-- CODE REACT -->
+    <script type="text/babel">
+        // Importation simplifiée des icônes depuis l'objet global Lucide
+        // Note: En mode standalone, on utilise les noms d'icônes comme attributs data-lucide
+        // Mais ici on va créer des composants SVG simples pour éviter la dépendance lourde à lucide.js
+        
+        // Composants Icônes simplifiés (SVG direct pour garantir l'affichage sans build step)
+        const IconGithub = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>;
+        const IconLinkedin = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
+        const IconMail = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>;
+        const IconFileText = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>;
+        const IconDatabase = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>;
+        const IconCloud = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.5 19c0-1.7-1.3-3-3-3h-1.1c-.2-3.2-2.7-5.5-5.9-5.5C4.7 10.5 2.5 13 2.5 15.8c0 2.9 2.1 5.2 5 5.2h10c2.8 0 5-2.2 5-5s-2.2-5-5-5c-.3 0-.6 0-.8.1"></path></svg>;
+        const IconCode = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>;
+        const IconBarChart = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" x2="12" y1="20" y2="10"></line><line x1="18" x2="18" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="16"></line></svg>;
+        const IconMapPin = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>;
+        const IconLink = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg>;
 
-        <!-- À propos -->
-        <section id="about" class="mb-5" data-aos="fade-up">
-            <h2>À propos</h2>
-            <p>Après plusieurs expériences en data engineering et en data analysis, je construis aujourd’hui des pipelines de données robustes et documentés sur GCP et Airflow. Je suis passionné par les bonnes pratiques de modélisation, de tests et de documentation avec dbt.</p>
-        </section>
-
-        <!-- Projets -->
-        <section id="projects" class="mb-5" data-aos="fade-up">
-            <h2>Projets</h2>
-            <ul>
-                <li><a href="https://github.com/Koukahamed/sql-revision-app" target="_blank">Revision SQL</a></li>
-                <li><a href="https://github.com/Koukahamed/data-projets-openclassrooms" target="_blank">Projets OpenClassrooms</a></li>
-            </ul>
-        </section>
-
-        <!-- Compétences techniques -->
-        <section id="skills" class="mb-5" data-aos="fade-up">
-            <h2>Compétences techniques</h2>
-            <div class="d-flex flex-wrap justify-content-start align-items-center gap-4 mt-3">
-                <img src="assets/img/tools/python.svg" alt="Python" class="tool-logo">
-                <img src="assets/img/tools/postgresql.svg" alt="SQL" class="tool-logo">
-                <img src="assets/img/tools/apacheairflow.svg" alt="Airflow" class="tool-logo">
-                <img src="assets/img/tools/googlecloud.svg" alt="GCP" class="tool-logo">
-                <img src="assets/img/tools/github.svg" alt="GitHub" class="tool-logo">
-                <img src="assets/img/tools/pycharm.svg" alt="PyCharm" class="tool-logo">
+        // --- COMPOSANT SKILL CARD ---
+        const SkillCard = ({ title, icon, skills, color }) => (
+            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition duration-300">
+                <div className={`w-12 h-12 ${color} rounded-lg flex items-center justify-center mb-4`}>
+                    {icon}
+                </div>
+                <h3 className="font-bold text-slate-900 mb-3 text-lg">{title}</h3>
+                <div className="flex flex-wrap gap-2">
+                    {skills.map((skill, i) => (
+                        <span key={i} className="px-2 py-1 bg-slate-50 text-slate-600 text-xs rounded border border-slate-200 font-medium">
+                            {skill}
+                        </span>
+                    ))}
+                </div>
             </div>
-        </section>
+        );
 
-        <!-- Contact -->
-        <footer class="text-center" data-aos="fade-up">
-            <p>📧 <a href="mailto:hamedsavadogo158@gmail.com">hamedsavadogo158@gmail.com</a></p>
-            <p>🔗 <a href="https://www.linkedin.com/in/hamed-savadogo" target="_blank">LinkedIn</a> | <a href="https://github.com/Koukahamed" target="_blank">GitHub</a></p>
-        </footer>
-    </div>
+        // --- APP PRINCIPALE ---
+        const App = () => {
+            const profile = {
+                name: "Hamed Kouka",
+                title: "Data Engineer | Data & Cloud Developer",
+                summary: "Data Engineer passionné par l'automatisation et la fiabilité des pipelines de données. Parcours combinant analyse, industrialisation et CI/CD dans des environnements cloud (GCP, Azure) et hybrides. Je conçois des architectures data robustes, gouvernées et évolutives.",
+                email: "hamed_kouka@yahoo.com",
+                github: "https://github.com/Koukahamed",
+                linkedin: "https://linkedin.com"
+            };
 
-    <!-- Bootstrap JS & jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+            const experiences = [
+                {
+                    company: "Perenco (via Axians)",
+                    role: "Data Engineer Consultant",
+                    period: "Août 2025 - Présent",
+                    location: "Paris",
+                    tasks: [
+                        "Conception et déploiement de modèles dbt sur Snowflake pour tables de référence critiques.",
+                        "Développement de procédures stockées Python Snowpark pour l'intégration API SaaS.",
+                        "Mise en place de pipelines CI/CD (CircleCI, GitHub Actions) pour l'automatisation DEV/PROD.",
+                        "Architecture sécurisée (RBAC Snowflake, Network rules) et collaboration Data Office/DSI."
+                    ]
+                },
+                {
+                    company: "Havas Media",
+                    role: "Stage Data Analyst",
+                    period: "Juil. 2022 - Déc. 2022",
+                    location: "Puteaux",
+                    tasks: [
+                        "Migration des flux analytiques vers BigQuery (GCP) : optimisation SQL et réduction des coûts.",
+                        "Création de dashboards Metabase / Power BI et accompagnement métier.",
+                        "Développement de modèles prédictifs (Python/R) pour le ciblage marketing."
+                    ]
+                }
+            ];
 
-    <!-- AOS JS -->
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+            const skills = {
+                data: ["dbt", "Airflow", "Snowflake", "Dataiku", "Docker"],
+                cloud: ["GCP (BigQuery)", "Azure (Data Factory)", "PostgreSQL"],
+                code: ["Python", "SQL", "Bash", "R", "Git", "CI/CD"],
+                viz: ["Power BI", "Tableau", "Metabase", "Looker Studio"]
+            };
 
-    <!-- Ton fichier script.js -->
-    <script src="script.js"></script>
+            const projects = [
+                {
+                    title: "⚽ AFCON Pro Analytics",
+                    desc: "Application de Data Science pour prédire les résultats de la CAN 2025. Utilise un moteur IA (Elo pondéré) pour simuler le tournoi et analyser l'historique.",
+                    tags: ["Python", "Streamlit", "Pandas", "Elo Algorithm", "Data Viz"],
+                    link: "#", // Lien vers votre app Streamlit
+                    type: "Data Engineering & AI"
+                }
+            ];
+
+            return (
+                <div className="min-h-screen">
+                    
+                    {/* NAV */}
+                    <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+                        <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+                            <div className="font-bold text-2xl text-indigo-600 tracking-tight cursor-pointer">HK.</div>
+                            <nav className="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                                <a href="#about" className="hover:text-indigo-600 transition">À propos</a>
+                                <a href="#skills" className="hover:text-indigo-600 transition">Compétences</a>
+                                <a href="#projects" className="hover:text-indigo-600 transition">Projets</a>
+                                <a href="#experience" className="hover:text-indigo-600 transition">Expérience</a>
+                            </nav>
+                            <a href={profile.github} target="_blank" className="bg-slate-900 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-slate-800 transition flex items-center gap-2">
+                                <IconGithub /> GitHub
+                            </a>
+                        </div>
+                    </header>
+
+                    <main className="max-w-5xl mx-auto px-6 pt-16 pb-24">
+                        
+                        {/* HERO */}
+                        <section id="about" className="mb-32 flex flex-col-reverse md:flex-row gap-12 items-center">
+                            <div className="flex-1 space-y-6">
+                                <div className="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wide">
+                                    Disponible pour opportunités
+                                </div>
+                                <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight">
+                                    Data Engineer <br />
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500">
+                                        & Cloud Developer
+                                    </span>
+                                </h1>
+                                <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
+                                    {profile.summary}
+                                </p>
+                                
+                                <div className="flex flex-wrap gap-4 pt-4">
+                                    <a href={`mailto:${profile.email}`} className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
+                                        <IconMail /> Me contacter
+                                    </a>
+                                    <button className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 transition">
+                                        <IconFileText /> CV PDF
+                                    </button>
+                                </div>
+
+                                <div className="flex gap-6 text-slate-400 pt-6">
+                                    <a href={profile.linkedin} className="hover:text-indigo-600 transition"><IconLinkedin /></a>
+                                    <a href={profile.github} className="hover:text-indigo-600 transition"><IconGithub /></a>
+                                </div>
+                            </div>
+                            
+                            <div className="relative group">
+                                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-cyan-400 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                                <div className="relative w-64 h-64 md:w-80 md:h-80 bg-white rounded-full flex items-center justify-center shadow-2xl">
+                                    <span className="text-9xl">👨‍💻</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* SKILLS */}
+                        <section id="skills" className="mb-32 scroll-mt-24">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-10 flex items-center gap-3">
+                                <span className="text-indigo-600"><IconCode /></span> Stack Technique
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <SkillCard title="Data Engineering" icon={<IconDatabase />} skills={skills.data} color="bg-blue-50 text-blue-700" />
+                                <SkillCard title="Cloud & DevOps" icon={<IconCloud />} skills={skills.cloud} color="bg-cyan-50 text-cyan-700" />
+                                <SkillCard title="Code & Scripting" icon={<IconCode />} skills={skills.code} color="bg-purple-50 text-purple-700" />
+                                <SkillCard title="BI & Viz" icon={<IconBarChart />} skills={skills.viz} color="bg-orange-50 text-orange-700" />
+                            </div>
+                        </section>
+
+                        {/* PROJECTS */}
+                        <section id="projects" className="mb-32 scroll-mt-24">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-10 flex items-center gap-3">
+                                <span className="text-indigo-600"><IconGithub /></span> Projets Featured
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                {projects.map((project, idx) => (
+                                    <div key={idx} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-xl transition duration-300 flex flex-col">
+                                        <div className="h-48 bg-gradient-to-r from-slate-800 to-indigo-900 flex items-center justify-center p-8 relative overflow-hidden">
+                                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                                            <div className="text-center z-10 transform group-hover:scale-110 transition duration-500">
+                                                <span className="text-5xl mb-2 block">⚽</span>
+                                                <h3 className="text-white font-bold text-xl drop-shadow-md">AFCON Analytics</h3>
+                                            </div>
+                                        </div>
+                                        <div className="p-8 flex-1 flex flex-col">
+                                            <div className="flex justify-between items-start mb-4">
+                                                <h3 className="font-bold text-xl text-slate-900">{project.title}</h3>
+                                                <a href={project.link} className="text-indigo-600 hover:text-indigo-800 p-1 hover:bg-indigo-50 rounded-full transition"><IconLink /></a>
+                                            </div>
+                                            <p className="text-slate-600 mb-6 text-sm leading-relaxed flex-1">
+                                                {project.desc}
+                                            </p>
+                                            <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-100">
+                                                {project.tags.map((tag, i) => (
+                                                    <span key={i} className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-full">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                                
+                                <a href={profile.github} target="_blank" className="flex flex-col items-center justify-center bg-slate-50 rounded-2xl border-2 border-dashed border-slate-300 hover:border-indigo-400 hover:bg-indigo-50 transition p-8 text-center group cursor-pointer h-full min-h-[300px]">
+                                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm mb-4 group-hover:scale-110 transition">
+                                        <span className="text-slate-400 group-hover:text-indigo-600"><IconGithub /></span>
+                                    </div>
+                                    <h3 className="font-bold text-slate-700 text-lg">Voir plus de projets</h3>
+                                    <p className="text-sm text-slate-500 mt-2">Explorez mes autres repos sur GitHub</p>
+                                </a>
+                            </div>
+                        </section>
+
+                        {/* EXPERIENCE */}
+                        <section id="experience" className="mb-32 scroll-mt-24">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-12 flex items-center gap-3">
+                                <span className="text-indigo-600"><IconMapPin /></span> Parcours Pro
+                            </h2>
+                            <div className="relative border-l-2 border-slate-200 ml-3 space-y-16">
+                                {experiences.map((exp, idx) => (
+                                    <div key={idx} className="relative pl-12 group">
+                                        {/* Point timeline */}
+                                        <div className="absolute -left-[9px] top-2 w-4 h-4 bg-white rounded-full border-4 border-slate-300 group-hover:border-indigo-600 group-hover:scale-125 transition duration-300"></div>
+                                        
+                                        <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4">
+                                            <div>
+                                                <h3 className="text-xl font-bold text-slate-900">{exp.role}</h3>
+                                                <div className="text-indigo-600 font-semibold text-lg">{exp.company}</div>
+                                            </div>
+                                            <div className="text-sm font-medium bg-indigo-50 text-indigo-700 px-4 py-1 rounded-full w-fit mt-2 sm:mt-0 border border-indigo-100">
+                                                {exp.period} • {exp.location}
+                                            </div>
+                                        </div>
+                                        
+                                        <ul className="space-y-3 mt-4">
+                                            {exp.tasks.map((task, i) => (
+                                                <li key={i} className="text-slate-600 text-sm leading-relaxed flex items-start gap-3">
+                                                    <span className="mt-2 w-1.5 h-1.5 bg-indigo-400 rounded-full flex-shrink-0"></span>
+                                                    {task}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
+                        {/* EDUCATION */}
+                        <section id="education" className="scroll-mt-24">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-10">🎓 Formation & Certifs</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                    <div className="mb-6">
+                                        <h3 className="font-bold text-lg text-slate-900">Master Ingénierie Statistique</h3>
+                                        <p className="text-indigo-600 font-medium">Université de Versailles (UVSQ)</p>
+                                        <p className="text-slate-400 text-sm mt-1">2022</p>
+                                    </div>
+                                    <div className="border-t border-slate-100 pt-6">
+                                        <h3 className="font-bold text-lg text-slate-900">Licence Mathématiques</h3>
+                                        <p className="text-indigo-600 font-medium">Université Sorbonne Paris Nord</p>
+                                        <p className="text-slate-400 text-sm mt-1">2020</p>
+                                    </div>
+                                </div>
+                                
+                                <div className="bg-slate-900 p-8 rounded-2xl shadow-xl text-white relative overflow-hidden group">
+                                    <div className="absolute top-0 right-0 p-32 bg-indigo-600 rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition duration-700"></div>
+                                    <h3 className="font-bold text-xl mb-6 flex items-center gap-2 relative z-10">
+                                        <span className="text-yellow-400">★</span> Certifications
+                                    </h3>
+                                    <ul className="space-y-4 text-slate-300 relative z-10">
+                                        <li className="flex items-center gap-3 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                            <div className="w-2 h-2 bg-green-400 rounded-full"></div> 
+                                            <div>
+                                                <div className="font-bold text-white">Data Analyst</div>
+                                                <div className="text-xs text-slate-400">RNCP OpenClassrooms, 2025</div>
+                                            </div>
+                                        </li>
+                                        <li className="flex items-center gap-3 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                            <div className="w-2 h-2 bg-green-400 rounded-full"></div> 
+                                            <div>
+                                                <div className="font-bold text-white">Dataiku Core & Advanced</div>
+                                                <div className="text-xs text-slate-400">2025</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                    </main>
+
+                    {/* FOOTER */}
+                    <footer className="bg-white border-t border-slate-200 py-12 text-center text-sm text-slate-500">
+                        <p className="mb-2">© 2025 Hamed Kouka. Fait avec React & Tailwind.</p>
+                        <p className="flex items-center justify-center gap-2">
+                            Hébergé sur GitHub Pages <span className="text-indigo-600 font-bold">🚀</span>
+                        </p>
+                    </footer>
+                </div>
+            );
+        };
+
+        // Rendu final
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
-
 </html>
