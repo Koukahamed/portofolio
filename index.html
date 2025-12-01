@@ -1,72 +1,187 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamed Kouka | Data Engineer</title>
-    
-    <!-- 1. Tailwind CSS (pour le style) -->
+
+    <title>Hamed Kouka | Data Engineer & Cloud Developer</title>
+    <meta name="description" content="Portfolio de Hamed Kouka, Data Engineer spécialisé en automatisation, pipelines de données (GCP/Azure) et CI/CD.">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 2. React et ReactDOM (le coeur) -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    
-    <!-- 3. Babel (pour traduire le JSX en JS standard dans le navigateur) -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 850: '#151e2e' }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- 4. Lucide Icons (version standalone) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        /* Ajustements mineurs */
-        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        .dark ::-webkit-scrollbar-track { background: #0f172a; }
+        /* Effet de brillance sur les cartes */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans">
+<body class="bg-slate-50 text-slate-800 font-sans dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
 
-    <!-- Point d'entrée de l'application React -->
     <div id="root"></div>
 
-    <!-- CODE REACT -->
     <script type="text/babel">
-        // Importation simplifiée des icônes (SVG direct pour garantir l'affichage sans build step)
-        const IconGithub = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>;
-        const IconLinkedin = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
-        const IconMail = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>;
-        const IconFileText = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>;
+        const { useState, useEffect } = React;
+
+        // --- ICONS (UI Interface) ---
+        const IconGithub = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>;
+        const IconLinkedin = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
+        const IconMail = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>;
+        const IconFileText = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>;
         const IconDatabase = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>;
         const IconCloud = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.5 19c0-1.7-1.3-3-3-3h-1.1c-.2-3.2-2.7-5.5-5.9-5.5C4.7 10.5 2.5 13 2.5 15.8c0 2.9 2.1 5.2 5 5.2h10c2.8 0 5-2.2 5-5s-2.2-5-5-5c-.3 0-.6 0-.8.1"></path></svg>;
         const IconCode = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>;
         const IconBarChart = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" x2="12" y1="20" y2="10"></line><line x1="18" x2="18" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="16"></line></svg>;
-        const IconMapPin = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>;
-        const IconLink = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg>;
+        const IconMapPin = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>;
+        const IconLink = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg>;
+        const IconMoon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>;
+        const IconSun = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>;
+        const IconMenu = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>;
+        const IconClose = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>;
 
-        // --- COMPOSANT SKILL CARD ---
-        const SkillCard = ({ title, icon, skills, color }) => (
-            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition duration-300">
-                <div className={`w-12 h-12 ${color} rounded-lg flex items-center justify-center mb-4`}>
-                    {icon}
+        // --- HELPER POUR LES LOGOS TECH ---
+        const getTechIcon = (techName) => {
+            const map = {
+                // DATA (mis à jour vers Simple Icons pour plus de fiabilité)
+                "dbt": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/dbt.svg",
+                "Airflow": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apacheairflow/apacheairflow-original.svg",
+                "Snowflake": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/snowflake.svg",
+                "Dataiku": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/dataiku.svg",
+                "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
+
+                // CLOUD
+                "GCP": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
+                "Azure": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
+                "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
+
+                // CODE
+                "Python": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
+                "SQL": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
+                "Bash": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg",
+                "R": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg",
+                "Git": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
+                "CI/CD": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg",
+
+                // VIZ (mis à jour vers Simple Icons)
+                "Power BI": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/powerbi.svg",
+                "Tableau": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tableau.svg",
+                "Metabase": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/metabase.svg",
+                "Looker Studio": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/lookerstudio.svg", // URL Looker Studio (ancien Data Studio)
+                "Looker": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/looker.svg", // Ajout de Looker si utilisé seul
+            };
+
+            // 1. Chercher la correspondance exacte (ex: "dbt" => "dbt")
+            const exactMatch = map[techName];
+            if (exactMatch) return exactMatch;
+
+            // 2. Fallback pour correspondance partielle (ex: "GCP (BigQuery)" => "GCP")
+            let key = Object.keys(map).find(k => techName.includes(k));
+            return key ? map[key] : null;
+        };
+
+        // --- COMPOSANT SKILL CARD REVAMPED ---
+        const SkillCard = ({ title, icon, skills, colorClass }) => (
+            <div className={`p-6 rounded-xl border border-slate-100 dark:border-slate-700 dark:bg-slate-800 bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}>
+                <div className="flex items-center gap-3 mb-6">
+                    <div className={`w-10 h-10 ${colorClass} rounded-lg flex items-center justify-center shadow-sm`}>
+                        {icon}
+                    </div>
+                    <h3 className="font-bold text-slate-900 dark:text-white text-lg">{title}</h3>
                 </div>
-                <h3 className="font-bold text-slate-900 mb-3 text-lg">{title}</h3>
-                <div className="flex flex-wrap gap-2">
-                    {skills.map((skill, i) => (
-                        <span key={i} className="px-2 py-1 bg-slate-50 text-slate-600 text-xs rounded border border-slate-200 font-medium">
-                            {skill}
-                        </span>
-                    ))}
+
+                {/* Grille de logos */}
+                <div className="grid grid-cols-3 gap-4">
+                    {skills.map((skill, i) => {
+                        const iconUrl = getTechIcon(skill);
+                        return (
+                            <div key={i} className="flex flex-col items-center gap-2 group cursor-default">
+                                <div className="w-12 h-12 flex items-center justify-center bg-slate-50 dark:bg-slate-700/50 rounded-xl p-2 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/20 transition-colors border border-slate-100 dark:border-slate-700">
+                                    {iconUrl ? (
+                                        <img src={iconUrl} alt={skill} className="w-full h-full object-contain" />
+                                    ) : (
+                                        <span className="text-xl font-bold text-slate-400">#</span>
+                                    )}
+                                </div>
+                                <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 text-center leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                    {skill.replace(/\(.*\)/, '')}
+                                </span>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         );
 
         // --- APP PRINCIPALE ---
         const App = () => {
+            const [isDark, setIsDark] = useState(false);
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+            useEffect(() => {
+                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                    setIsDark(true);
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    setIsDark(false);
+                }
+            }, []);
+
+            const toggleTheme = () => {
+                if (isDark) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                    setIsDark(false);
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                    setIsDark(true);
+                }
+            };
+
             const profile = {
                 name: "Hamed Kouka",
                 title: "Data Engineer | Data & Cloud Developer",
-                summary: "Data Engineer passionné par l'automatisation et la fiabilité des pipelines de données. Parcours combinant analyse, industrialisation et CI/CD dans des environnements cloud (GCP, Azure) et hybrides. Je conçois des architectures data robustes, gouvernées et évolutives.",
+                summary: "Data Engineer spécialisé dans la transformation de données brutes en leviers de croissance. Avec une double compétence technique (Python, SQL, Cloud) et métier, je conçois des architectures Modern Data Stack (Snowflake, dbt, Airflow) qui sont non seulement robustes, mais rentables. Mon objectif : réduire la latence, assurer la gouvernance et démocratiser l'accès à la donnée.",
                 email: "hamed_kouka@yahoo.com",
                 github: "https://github.com/Koukahamed",
-                linkedin: "https://linkedin.com" // Ajoutez votre lien LinkedIn réel ici
+                linkedin: "https://www.linkedin.com/in/hamed-kouka/"
             };
 
             const experiences = [
@@ -119,92 +234,121 @@
                     title: "⚽ AFCON Pro Analytics",
                     desc: "Application de Data Science pour prédire les résultats de la CAN 2025. Utilise un moteur IA (Elo pondéré) pour simuler le tournoi et analyser l'historique.",
                     tags: ["Python", "Streamlit", "Pandas", "Elo Algorithm", "Data Viz"],
-                    link: "https://afcon-dashboard.streamlit.app/", // Lien vers votre app Streamlit
+                    link: "https://afcon-dashboard.streamlit.app/",
                     type: "Data Engineering & AI"
                 }
             ];
 
             return (
                 <div className="min-h-screen">
-                    
+
                     {/* NAV */}
-                    <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+                    <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
                         <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-                            <div className="font-bold text-2xl text-indigo-600 tracking-tight cursor-pointer">HK.</div>
-                            <nav className="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-                                <a href="#about" className="hover:text-indigo-600 transition">À propos</a>
-                                <a href="#skills" className="hover:text-indigo-600 transition">Compétences</a>
-                                <a href="#projects" className="hover:text-indigo-600 transition">Projets</a>
-                                <a href="#experience" className="hover:text-indigo-600 transition">Expérience</a>
+                            <div className="font-bold text-2xl text-indigo-600 dark:text-indigo-400 tracking-tight cursor-pointer hover:scale-105 transition-transform">HK.</div>
+
+                            {/* Desktop Menu */}
+                            <nav className="hidden md:flex space-x-8 text-sm font-medium text-slate-600 dark:text-slate-300">
+                                <a href="#about" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition">À propos</a>
+                                <a href="#skills" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Compétences</a>
+                                <a href="#projects" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Projets</a>
+                                <a href="#experience" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Expérience</a>
                             </nav>
-                            <a href={profile.github} target="_blank" className="bg-slate-900 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-slate-800 transition flex items-center gap-2">
-                                <IconGithub /> GitHub
-                            </a>
+
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={toggleTheme}
+                                    className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition"
+                                    aria-label="Toggle Dark Mode"
+                                >
+                                    {isDark ? <IconSun /> : <IconMoon />}
+                                </button>
+
+                                <a href={profile.github} target="_blank" className="hidden md:flex bg-slate-900 dark:bg-white dark:text-slate-900 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-slate-800 dark:hover:bg-slate-200 transition items-center gap-2">
+                                    <IconGithub /> GitHub
+                                </a>
+
+                                {/* Mobile Menu Button */}
+                                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2 text-slate-600 dark:text-slate-300">
+                                    {isMenuOpen ? <IconClose /> : <IconMenu />}
+                                </button>
+                            </div>
                         </div>
+
+                        {/* Mobile Menu Dropdown */}
+                        {isMenuOpen && (
+                            <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-xl p-4 flex flex-col space-y-4 animate-fade-in-up">
+                                <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-slate-300 py-2 hover:text-indigo-600">À propos</a>
+                                <a href="#skills" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-slate-300 py-2 hover:text-indigo-600">Compétences</a>
+                                <a href="#projects" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-slate-300 py-2 hover:text-indigo-600">Projets</a>
+                                <a href="#experience" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-slate-300 py-2 hover:text-indigo-600">Expérience</a>
+                            </div>
+                        )}
                     </header>
 
                     <main className="max-w-5xl mx-auto px-6 pt-16 pb-24">
-                        
+
                         {/* HERO */}
-                        <section id="about" className="mb-32 flex flex-col-reverse md:flex-row gap-12 items-center">
+                        <section id="about" className="mb-32 flex flex-col-reverse md:flex-row gap-12 items-center min-h-[60vh] justify-center animate-fade-in-up">
                             <div className="flex-1 space-y-6">
-                                <div className="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wide">
+                                <div className="inline-block px-3 py-1 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wide">
                                     Disponible pour opportunités
                                 </div>
-                                <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight">
+                                <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight">
                                     Data Engineer <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500">
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500 dark:from-indigo-400 dark:to-cyan-300">
                                         & Cloud Developer
                                     </span>
                                 </h1>
-                                <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
+                                <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
                                     {profile.summary}
                                 </p>
-                                
+
                                 <div className="flex flex-wrap gap-4 pt-4">
-                                    <a href={`mailto:${profile.email}`} className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
+                                    <a href={`mailto:${profile.email}`} className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition shadow-lg shadow-indigo-200 dark:shadow-none hover:-translate-y-0.5">
                                         <IconMail /> Me contacter
                                     </a>
-                                    <a href="./hamed_savadogo_cv_data.pdf" download className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 transition cursor-pointer">
+                                    <a href="./hamed_savadogo_cv_data.pdf" download className="flex items-center gap-2 px-6 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition cursor-pointer hover:-translate-y-0.5">
                                         <IconFileText /> CV PDF
                                     </a>
                                 </div>
 
                                 <div className="flex gap-6 text-slate-400 pt-6">
-                                    <a href={profile.linkedin} className="hover:text-indigo-600 transition"><IconLinkedin /></a>
-                                    <a href={profile.github} className="hover:text-indigo-600 transition"><IconGithub /></a>
+                                    <a href={profile.linkedin} target="_blank" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition hover:scale-110"><IconLinkedin /></a>
+                                    <a href={profile.github} target="_blank" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition hover:scale-110"><IconGithub /></a>
                                 </div>
                             </div>
-                            
+
                             <div className="relative group">
-                                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-cyan-400 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                                <div className="relative w-64 h-64 md:w-80 md:h-80 bg-white rounded-full flex items-center justify-center shadow-2xl">
-                                    <span className="text-9xl">👨‍💻</span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-cyan-400 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                                <div className="relative w-64 h-64 md:w-80 md:h-80 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center shadow-2xl transition-all">
+                                    {/* PHOTO */}
+                                    <span className="text-9xl animate-bounce-slow">👨‍💻</span>
                                 </div>
                             </div>
                         </section>
 
                         {/* SKILLS */}
-                        <section id="skills" className="mb-32 scroll-mt-24">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-10 flex items-center gap-3">
-                                <span className="text-indigo-600"><IconCode /></span> Stack Technique
+                        <section id="skills" className="mb-32 scroll-mt-28">
+                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-10 flex items-center gap-3">
+                                <span className="text-indigo-600 dark:text-indigo-400"><IconCode /></span> Stack Technique
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                <SkillCard title="Data Engineering" icon={<IconDatabase />} skills={skills.data} color="bg-blue-50 text-blue-700" />
-                                <SkillCard title="Cloud & DevOps" icon={<IconCloud />} skills={skills.cloud} color="bg-cyan-50 text-cyan-700" />
-                                <SkillCard title="Code & Scripting" icon={<IconCode />} skills={skills.code} color="bg-purple-50 text-purple-700" />
-                                <SkillCard title="BI & Viz" icon={<IconBarChart />} skills={skills.viz} color="bg-orange-50 text-orange-700" />
+                                <SkillCard title="Data Engineering" icon={<IconDatabase />} skills={skills.data} colorClass="bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300" />
+                                <SkillCard title="Cloud & DevOps" icon={<IconCloud />} skills={skills.cloud} colorClass="bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300" />
+                                <SkillCard title="Code & Scripting" icon={<IconCode />} skills={skills.code} colorClass="bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300" />
+                                <SkillCard title="BI & Viz" icon={<IconBarChart />} skills={skills.viz} colorClass="bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300" />
                             </div>
                         </section>
 
                         {/* PROJECTS */}
-                        <section id="projects" className="mb-32 scroll-mt-24">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-10 flex items-center gap-3">
-                                <span className="text-indigo-600"><IconGithub /></span> Projets Featured
+                        <section id="projects" className="mb-32 scroll-mt-28">
+                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-10 flex items-center gap-3">
+                                <span className="text-indigo-600 dark:text-indigo-400"><IconGithub /></span> Projets Featured
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 {projects.map((project, idx) => (
-                                    <div key={idx} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-xl transition duration-300 flex flex-col">
+                                    <div key={idx} className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden hover:shadow-xl transition duration-300 flex flex-col">
                                         <div className="h-48 bg-gradient-to-r from-slate-800 to-indigo-900 flex items-center justify-center p-8 relative overflow-hidden">
                                             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
                                             <div className="text-center z-10 transform group-hover:scale-110 transition duration-500">
@@ -214,15 +358,15 @@
                                         </div>
                                         <div className="p-8 flex-1 flex flex-col">
                                             <div className="flex justify-between items-start mb-4">
-                                                <h3 className="font-bold text-xl text-slate-900">{project.title}</h3>
-                                                <a href={project.link} className="text-indigo-600 hover:text-indigo-800 p-1 hover:bg-indigo-50 rounded-full transition"><IconLink /></a>
+                                                <h3 className="font-bold text-xl text-slate-900 dark:text-white">{project.title}</h3>
+                                                <a href={project.link} target="_blank" className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200 p-1 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 rounded-full transition"><IconLink /></a>
                                             </div>
-                                            <p className="text-slate-600 mb-6 text-sm leading-relaxed flex-1">
+                                            <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed flex-1">
                                                 {project.desc}
                                             </p>
-                                            <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-100">
+                                            <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-100 dark:border-slate-700">
                                                 {project.tags.map((tag, i) => (
-                                                    <span key={i} className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-full">
+                                                    <span key={i} className="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-full">
                                                         {tag}
                                                     </span>
                                                 ))}
@@ -230,42 +374,42 @@
                                         </div>
                                     </div>
                                 ))}
-                                
-                                <a href={profile.github} target="_blank" className="flex flex-col items-center justify-center bg-slate-50 rounded-2xl border-2 border-dashed border-slate-300 hover:border-indigo-400 hover:bg-indigo-50 transition p-8 text-center group cursor-pointer h-full min-h-[300px]">
-                                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm mb-4 group-hover:scale-110 transition">
-                                        <span className="text-slate-400 group-hover:text-indigo-600"><IconGithub /></span>
+
+                                <a href={profile.github} target="_blank" className="flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-800/50 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-slate-800 transition p-8 text-center group cursor-pointer h-full min-h-[300px]">
+                                    <div className="w-16 h-16 bg-white dark:bg-slate-700 rounded-full flex items-center justify-center shadow-sm mb-4 group-hover:scale-110 transition">
+                                        <span className="text-slate-400 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"><IconGithub /></span>
                                     </div>
-                                    <h3 className="font-bold text-slate-700 text-lg">Voir plus de projets</h3>
-                                    <p className="text-sm text-slate-500 mt-2">Explorez mes autres repos sur GitHub</p>
+                                    <h3 className="font-bold text-slate-700 dark:text-slate-200 text-lg">Voir plus de projets</h3>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">Explorez mes autres repos sur GitHub</p>
                                 </a>
                             </div>
                         </section>
 
                         {/* EXPERIENCE */}
-                        <section id="experience" className="mb-32 scroll-mt-24">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-12 flex items-center gap-3">
-                                <span className="text-indigo-600"><IconMapPin /></span> Parcours Pro
+                        <section id="experience" className="mb-32 scroll-mt-28">
+                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-12 flex items-center gap-3">
+                                <span className="text-indigo-600 dark:text-indigo-400"><IconMapPin /></span> Parcours Pro
                             </h2>
-                            <div className="relative border-l-2 border-slate-200 ml-3 space-y-16">
+                            <div className="relative border-l-2 border-slate-200 dark:border-slate-700 ml-3 space-y-16">
                                 {experiences.map((exp, idx) => (
                                     <div key={idx} className="relative pl-12 group">
                                         {/* Point timeline */}
-                                        <div className="absolute -left-[9px] top-2 w-4 h-4 bg-white rounded-full border-4 border-slate-300 group-hover:border-indigo-600 group-hover:scale-125 transition duration-300"></div>
-                                        
+                                        <div className="absolute -left-[9px] top-2 w-4 h-4 bg-white dark:bg-slate-900 rounded-full border-4 border-slate-300 dark:border-slate-600 group-hover:border-indigo-600 dark:group-hover:border-indigo-400 group-hover:scale-125 transition duration-300"></div>
+
                                         <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4">
                                             <div>
-                                                <h3 className="text-xl font-bold text-slate-900">{exp.role}</h3>
-                                                <div className="text-indigo-600 font-semibold text-lg">{exp.company}</div>
+                                                <h3 className="text-xl font-bold text-slate-900 dark:text-white">{exp.role}</h3>
+                                                <div className="text-indigo-600 dark:text-indigo-400 font-semibold text-lg">{exp.company}</div>
                                             </div>
-                                            <div className="text-sm font-medium bg-indigo-50 text-indigo-700 px-4 py-1 rounded-full w-fit mt-2 sm:mt-0 border border-indigo-100">
+                                            <div className="text-sm font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 px-4 py-1 rounded-full w-fit mt-2 sm:mt-0 border border-indigo-100 dark:border-indigo-800">
                                                 {exp.period} • {exp.location}
                                             </div>
                                         </div>
-                                        
+
                                         <ul className="space-y-3 mt-4">
                                             {exp.tasks.map((task, i) => (
-                                                <li key={i} className="text-slate-600 text-sm leading-relaxed flex items-start gap-3">
-                                                    <span className="mt-2 w-1.5 h-1.5 bg-indigo-400 rounded-full flex-shrink-0"></span>
+                                                <li key={i} className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex items-start gap-3">
+                                                    <span className="mt-2 w-1.5 h-1.5 bg-indigo-400 dark:bg-indigo-600 rounded-full flex-shrink-0"></span>
                                                     {task}
                                                 </li>
                                             ))}
@@ -276,37 +420,37 @@
                         </section>
 
                         {/* EDUCATION */}
-                        <section id="education" className="scroll-mt-24">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-10">🎓 Formation & Certifs</h2>
+                        <section id="education" className="scroll-mt-28">
+                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-10">🎓 Formation & Certifs</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition">
                                     <div className="mb-6">
-                                        <h3 className="font-bold text-lg text-slate-900">Master Ingénierie Statistiques et Actuariat</h3>
-                                        <p className="text-indigo-600 font-medium">Université de Versailles (UVSQ)</p>
+                                        <h3 className="font-bold text-lg text-slate-900 dark:text-white">Master Ingénierie Statistiques et Actuariat</h3>
+                                        <p className="text-indigo-600 dark:text-indigo-400 font-medium">Université de Versailles (UVSQ)</p>
                                         <p className="text-slate-400 text-sm mt-1">2022</p>
                                     </div>
-                                    <div className="border-t border-slate-100 pt-6">
-                                        <h3 className="font-bold text-lg text-slate-900">Licence Mathématiques</h3>
-                                        <p className="text-indigo-600 font-medium">Université Sorbonne Paris Nord</p>
+                                    <div className="border-t border-slate-100 dark:border-slate-700 pt-6">
+                                        <h3 className="font-bold text-lg text-slate-900 dark:text-white">Licence Mathématiques</h3>
+                                        <p className="text-indigo-600 dark:text-indigo-400 font-medium">Université Sorbonne Paris Nord</p>
                                         <p className="text-slate-400 text-sm mt-1">2020</p>
                                     </div>
                                 </div>
-                                
-                                <div className="bg-slate-900 p-8 rounded-2xl shadow-xl text-white relative overflow-hidden group">
+
+                                <div className="bg-slate-900 dark:bg-slate-950 p-8 rounded-2xl shadow-xl text-white relative overflow-hidden group border border-slate-800">
                                     <div className="absolute top-0 right-0 p-32 bg-indigo-600 rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition duration-700"></div>
                                     <h3 className="font-bold text-xl mb-6 flex items-center gap-2 relative z-10">
                                         <span className="text-yellow-400">★</span> Certifications
                                     </h3>
                                     <ul className="space-y-4 text-slate-300 relative z-10">
                                         <li className="flex items-center gap-3 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition">
-                                            <div className="w-2 h-2 bg-green-400 rounded-full"></div> 
+                                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                                             <div>
                                                 <div className="font-bold text-white">Data Analyst</div>
                                                 <div className="text-xs text-slate-400">RNCP OpenClassrooms, 2025</div>
                                             </div>
                                         </li>
                                         <li className="flex items-center gap-3 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition">
-                                            <div className="w-2 h-2 bg-green-400 rounded-full"></div> 
+                                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                                             <div>
                                                 <div className="font-bold text-white">Dataiku Core & Advanced</div>
                                                 <div className="text-xs text-slate-400">2025</div>
@@ -320,17 +464,16 @@
                     </main>
 
                     {/* FOOTER */}
-                    <footer className="bg-white border-t border-slate-200 py-12 text-center text-sm text-slate-500">
+                    <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 text-center text-sm text-slate-500 dark:text-slate-400">
                         <p className="mb-2">© 2025 Hamed Kouka. Fait avec React & Tailwind.</p>
                         <p className="flex items-center justify-center gap-2">
-                            Hébergé sur GitHub Pages <span className="text-indigo-600 font-bold">🚀</span>
+                            Hébergé sur GitHub Pages <span className="text-indigo-600 dark:text-indigo-400 font-bold">🚀</span>
                         </p>
                     </footer>
                 </div>
             );
         };
 
-        // Rendu final
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
